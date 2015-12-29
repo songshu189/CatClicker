@@ -1,35 +1,68 @@
-cats = ['poplinre', 'chewie', 'adora', 'beauty', 'calico'];
-clicks = [2, 3, 5, 3, 6];
-var currentIdx = 0;
+$(function() {
+    var data = [
+        {name:'poplinre', count:2},
+        {name:'chewie', count: 3},
+        {name:'adora', count: 5},
+        {name:'beauty', count: 3},
+        {name:'calico', count: 6}];
+        
+    var octopus = {
+        currItem: 0,
+        init: function() {
+            view.init();
+        },
+        get: function() {
+            return data[this.currItem];
+        },
+        getAll: function() {
+            return data;
+        },
+        set: function(curr) {
+            this.currItem = curr;
+        },
+        click: function() {
+            data[this.currItem].count += 1;
+        }
+    };
 
-var catList = $('#cat-list');
+    var view = {
+        init: function() {
+            var $ulist = $('#cat-list');
+            $.each(octopus.getAll(), function(i, cat) {
+                var $li = $('<li />', { id: i});
+                $li.append('<h3>' + cat.name + '</h3>');
+                $ulist.append($li);
+            });
 
-for(var i=0; i < cats.length; i++) {
-    $('<li />', {'cat-idx': i}).append('<h2>'+ cats[i] + '</h2>')
-        .appendTo(catList);
-}
-$('#cat-detail').append('<h2 id="cat-name">'+ cats[i] + '</h2>')
-        .append('<img id="cat-img" src="images/' + cats[i] + '.jpg" />')
-        .append('<h2 id="cat-click" class="click">' + clicks[i] + '</h2>');
+            $ulist.on('click', 'li', function( event ) {
+                octopus.set($( this ).attr('id'));
+                view.render();
+            });
+            
+            var cat = octopus.get();
 
-var catName = $('#cat-name');
-var catImg = $('#cat-img');
-var catClick = $('#cat-click');
+            $('#cat-detail').append('<h2 id="cat-name">'+ cat.name + '</h2>')
+                .append('<img id="cat-img" src="images/' + cat.name + '.jpg" />')
+                .append('<h2 id="cat-click" class="click">' + cat.count + '</h2>');
+        
+            this.catName = $('#cat-name');
+            this.catClick = $('#cat-click');
+            this.catImg = $('#cat-img');
+            this.render();
 
-function setDetail() {
-    catName.text(cats[currentIdx]);
-    catImg.attr('src', 'images/' + cats[currentIdx] + '.jpg');
-    catClick.text(clicks[currentIdx]);
-}
+            this.catImg.on('click', function() {
+                octopus.click();
+                view.render();
+            });
+        },
 
-setDetail();
+        render: function() {
+            var cat = octopus.get();
+            this.catName.html(cat.name);
+            this.catClick.html(cat.count);
+            this.catImg.attr('src',  'images/' + cat.name + '.jpg');
+        }
+    };
 
-catList.on('click', 'li', function() {
-    currentIdx = $(this).attr('cat-idx');
-    setDetail();
-});
-
-$('img').on('click', function() {
-    clicks[currentIdx] += 1;
-    catClick.text(clicks[currentIdx]);
+    octopus.init();
 });
