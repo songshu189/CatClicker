@@ -1,7 +1,15 @@
-html {
+h1 {
     text-align: center;
 }
 
 .cat-container {
     display: flex;
+}
+
+.half {
+    width: 50%;
+}
+
+#cat-detail {
+    text-align: center;
 }
