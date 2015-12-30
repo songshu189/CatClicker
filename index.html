@@ -15,6 +15,31 @@
         <div id='cat-detail' class='half'>
         </div>
     </div>
+        <div class='cat-container'>
+        <div class='admin-btn'>
+            <input id='admin-btn' type='button' value='admin' />
+        </div>
+
+        <div id='admin-panel' class='admin-panel'>
+          <div class='admin-field'>
+            <table>
+                <tr>
+                    <td><label for="name" id="name_label">Name</label></td>
+                    <td><input type="text" name="name" id="cat_name" size="30" value="" class="text-input" /></td></tr>
+                <tr><td><label for="imgurl" id="imgurl_label">ImgURL</label></td>
+                    <td><input type="text" name="imgurl" id="imgurl" size="30" value="" class="text-input" /></td></tr>
+
+                <tr><td><label for="clicks" id="clicks_label">Clicks</label></td>
+                    <td><input type="text" name="clicks" id="cat_clicks" size="30" value="" class="text-input" /></td></tr>
+            </table>
+          </div>
+          <div class='admin-field-btn'>
+            <input id='cancel-btn' type='button' value='Cancel' />
+            <input id='save-btn' type='button' value='Save' />
+          </div>
+        </div>
+    </div>
+    
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/script.js"></script>
 </body>

@@ -13,3 +13,23 @@ h1 {
 #cat-detail {
     text-align: center;
 }
+
+.admin-btn {
+    width: 10%;
+}
+
+.admin-panel {
+    width: 35%;
+    text-align: right;
+}
+
+table {
+    margin-right: 0px;
+    margin-left:  auto;
+    text-align: left:;
+}
+
+img {
+    max-width: 100%;
+    max-height: 500px;
+}

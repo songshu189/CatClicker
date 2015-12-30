@@ -31,6 +31,7 @@ $(function() {
         init: function() {
             listView.init();
             detailView.init();
+            adminView.init();
         },
         get: function() {
             return data[this.currItem];
@@ -54,16 +55,21 @@ $(function() {
 
     var listView = {
         init: function() {
-            var $ulist = $('#cat-list');
+            this.ulist = $('#cat-list');
+            this.render();
+
+            this.ulist.on('click', 'li', function( event ) {
+                octopus.set($( this ).attr('id'));
+                detailView.render();
+            });
+        },
+        render: function() {
+            this.ulist.html('');
+            var _self = this;
             $.each(octopus.getAll(), function(i, cat) {
                 var $li = $('<li />', { id: i});
                 $li.append('<h3>' + cat.name + '</h3>');
-                $ulist.append($li);
-            });
-
-            $ulist.on('click', 'li', function( event ) {
-                octopus.set($( this ).attr('id'));
-                detailView.render();
+                _self.ulist.append($li);
             });
         }
     };
@@ -94,6 +100,40 @@ $(function() {
             this.catImg.attr('src',  cat.imgurl);
         }
     };
+   
+    var adminView = {
+        init: function() {
+            this.adminPanel = $('#admin-panel');
+            this.catName = $('#cat_name');
+            this.imgURL = $('#imgurl');
+            this.catClicks = $('#cat_clicks');
+            var _self = this;
+
+            $('#admin-btn').on('click', function() {
+                _self.adminPanel.show();
+                adminView.render();
+            });
+
+            this.adminPanel.hide();
+
+            $('#cancel-btn').on('click', function() {
+                _self.adminPanel.hide();
+            });
+
+            $('#save-btn').on('click', function() {
+                 octopus.update(_self.catName.val(), _self.imgURL.val(), _self.catClicks.val());
+                 detailView.render();
+                 listView.render();
+                _self.adminPanel.hide();
+            });
+        },
+        render: function() {
+            var cat = octopus.get();
+            this.catName.val(cat.name);
+            this.imgURL.val(cat.imgurl);
+            this.catClicks.val(cat.count);
+        }
+    }
    
     octopus.init();
 });
