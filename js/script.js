@@ -1,11 +1,31 @@
 $(function() {
     var data = [
-        {name:'poplinre', count:2},
-        {name:'chewie', count: 3},
-        {name:'adora', count: 5},
-        {name:'beauty', count: 3},
-        {name:'calico', count: 6}];
-        
+        {name: 'adora', 
+         imgurl: 'images/adora.jpg',
+         count: 2},
+        {name: 'beauty',
+         imgurl: 'images/beauty.jpg',
+         count: 1},
+        {name: 'calico', 
+         imgurl: 'images/calico.jpg',
+         count: 3},
+        {name: 'chewie', 
+         imgurl: 'images/chewie.jpg',
+         count: 5},
+        {name: 'kate', 
+         imgurl: 'images/kate.jpg',
+         count: 2},
+        {name: 'kitten', 
+         imgurl: 'images/kitten.jpg',
+         count: 6},
+        {name: 'poplinre', 
+         imgurl: 'images/poplinre.jpg',
+         count: 1},
+        {name: 'santaria', 
+         imgurl: 'images/santaria.jpg',
+         count: 3}
+    ];
+    
     var octopus = {
         currItem: 0,
         init: function() {
@@ -23,6 +43,12 @@ $(function() {
         },
         click: function() {
             data[this.currItem].count += 1;
+        },
+        update: function(name, url, count) {
+            var cat = this.get();
+            cat.name = name;
+            cat.imgurl = url;
+            cat.count = parseInt(count);
         }
     };
 
@@ -65,9 +91,9 @@ $(function() {
             var cat = octopus.get();
             this.catName.html(cat.name);
             this.catClick.html(cat.count);
-            this.catImg.attr('src',  'images/' + cat.name + '.jpg');
+            this.catImg.attr('src',  cat.imgurl);
         }
     };
-
+   
     octopus.init();
 });
