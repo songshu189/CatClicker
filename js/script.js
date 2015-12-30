@@ -9,7 +9,8 @@ $(function() {
     var octopus = {
         currItem: 0,
         init: function() {
-            view.init();
+            listView.init();
+            detailView.init();
         },
         get: function() {
             return data[this.currItem];
@@ -25,7 +26,7 @@ $(function() {
         }
     };
 
-    var view = {
+    var listView = {
         init: function() {
             var $ulist = $('#cat-list');
             $.each(octopus.getAll(), function(i, cat) {
@@ -36,9 +37,13 @@ $(function() {
 
             $ulist.on('click', 'li', function( event ) {
                 octopus.set($( this ).attr('id'));
-                view.render();
+                detailView.render();
             });
-            
+        }
+    };
+    
+    var detailView = {
+        init: function() {
             var cat = octopus.get();
 
             $('#cat-detail').append('<h2 id="cat-name">'+ cat.name + '</h2>')
@@ -52,7 +57,7 @@ $(function() {
 
             this.catImg.on('click', function() {
                 octopus.click();
-                view.render();
+                detailView.render();
             });
         },
 
