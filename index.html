@@ -9,38 +9,53 @@
     <h1>Cat Clicker</h1>
     <div id='cat-container' class='cat-container'>
         <div class='half'>
-            <ul id='cat-list'>
+            <ul id='cat-list' data-bind='foreach:catList' >
+                <li data-bind="click: $parent.setCurrent.bind($parent)">
+                    <h3 data-bind="text: $data.name"> </h3>
+                </li>
             </ul>
         </div>
-        <div id='cat-detail' class='half'>
+
+        <div id="cat" data-bind="with: currentCat" class="half">
+            <h2 data-bind="text: name"></h2>
+            <h3 data-bind="text: title"></h3>
+            <img data-bind="click:$parent.incrementCounter.bind($parent), attr:{src: imgurl}" src="" alt="cute cat">
+            <div data-bind="text: clickCount"></div>
+            <h3>Nikcknames</h3>
+            <ul data-bind="foreach: nicknames">
+                <li>
+                    <span data-bind="text: $data"> </span>
+                </li>
+            </ul>
         </div>
     </div>
-        <div class='cat-container'>
+    <div class='cat-container'>
         <div class='admin-btn'>
-            <input id='admin-btn' type='button' value='admin' />
+            <input type='button' data-bind="click: showPanel" value='admin' />
         </div>
 
-        <div id='admin-panel' class='admin-panel'>
+        <div class='admin-panel' data-bind="visible: show">
           <div class='admin-field'>
-            <table>
+            <table data-bind="with: currentCat">
                 <tr>
-                    <td><label for="name" id="name_label">Name</label></td>
-                    <td><input type="text" name="name" id="cat_name" size="30" value="" class="text-input" /></td></tr>
-                <tr><td><label for="imgurl" id="imgurl_label">ImgURL</label></td>
-                    <td><input type="text" name="imgurl" id="imgurl" size="30" value="" class="text-input" /></td></tr>
+                    <td><label for="name">Name</label></td>
+                    <td><input type="text" name="name" size="30" data-bind="value: name" class="text-input" /></td></tr>
+                <tr><td><label for="imgurl">ImgURL</label></td>
+                    <td><input type="text" name="imgurl" id="imgurl" size="30" data-bind="value: imgurl" class="text-input" /></td></tr>
 
-                <tr><td><label for="clicks" id="clicks_label">Clicks</label></td>
-                    <td><input type="text" name="clicks" id="cat_clicks" size="30" value="" class="text-input" /></td></tr>
+                <tr><td><label for="clicks">Clicks</label></td>
+                    <td><input type="text" name="clicks" size="30" data-bind="value: clickCount" class="text-input" /></td></tr>
             </table>
           </div>
           <div class='admin-field-btn'>
-            <input id='cancel-btn' type='button' value='Cancel' />
-            <input id='save-btn' type='button' value='Save' />
+            <input type='button' data-bind="click: hide" value='Cancel' />
+            <input type='button' data-bind="click: save" value='Save' />
           </div>
         </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
