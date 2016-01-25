@@ -75,6 +75,7 @@ app.controller('catCtrl', function($scope) {
     $scope.currentCat = $scope.catList[0];
     $scope.setCat = function(cat) {
         $scope.currentCat = cat;
+        get();
     }
     
     function get() {
@@ -87,6 +88,11 @@ app.controller('catCtrl', function($scope) {
         $scope.currentCat.imgurl = $scope.currentUrl;
         $scope.currentCat.clickCount = $scope.currentCount;
     }
+    
+    $scope.incrementCounter = function() {
+        $scope.currentCat.incrementCounter();
+        $scope.currentCount = $scope.currentCat.clickCount;
+    };
     
     $scope.show = false;
     $scope.showPanel = function() {
