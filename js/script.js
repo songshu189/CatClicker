@@ -77,12 +77,29 @@ app.controller('catCtrl', function($scope) {
         $scope.currentCat = cat;
     }
     
+    function get() {
+        $scope.currentName = $scope.currentCat.name;
+        $scope.currentUrl = $scope.currentCat.imgurl;
+        $scope.currentCount = $scope.currentCat.clickCount;
+    }
+    function set() {
+        $scope.currentCat.name = $scope.currentName;
+        $scope.currentCat.imgurl = $scope.currentUrl;
+        $scope.currentCat.clickCount = $scope.currentCount;
+    }
+    
     $scope.show = false;
     $scope.showPanel = function() {
         $scope.show = true;
+        get();
     };
     
     $scope.hide = function() {
         $scope.show = false;
+    };
+    
+    $scope.save = function() {
+        $scope.show = false;
+        set();
     };
 });

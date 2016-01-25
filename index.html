@@ -25,12 +25,12 @@
             <table>
                 <tr>
                     <td><label for="name">Name</label></td>
-                    <td><input type="text" name="name" size="30" value="{{currentCat.name}}" class="text-input" /></td></tr>
+                    <td><input type="text" name="name" size="30" ng-model="currentName" value="{{currentName}}" class="text-input" /></td></tr>
                 <tr><td><label for="imgurl">ImgURL</label></td>
-                    <td><input type="text" name="imgurl" id="imgurl" size="30" value="{{currentCat.imgurl}}" class="text-input" /></td></tr>
+                    <td><input type="text" name="imgurl" id="imgurl" size="30" ng-model="currentUrl" value="{{currentUrl}}" class="text-input" /></td></tr>
 
                 <tr><td><label for="clicks">Clicks</label></td>
-                    <td><input type="text" name="clicks" size="30" value="{{currentCat.clickCount}}" class="text-input" /></td></tr>
+                    <td><input type="text" name="clicks" size="30" ng-model="currentCount" value="{{currentCount}}" class="text-input" /></td></tr>
             </table>
           </div>
           <div class='admin-field-btn'>
