@@ -34,13 +34,14 @@ var data = [
 ];
 
 var Cat = function(data) {
-    this.clickCount = ko.observable(data.count);
-    this.name = ko.observable(data.name);
-    this.imgurl = ko.observable(data.imgurl);
+    var self = this;
+    this.clickCount = data.count;
+    this.name = data.name;
+    this.imgurl = data.imgurl;
     //this.imgAttribution = ko.observable(data.imgAttribution);
 
-    this.title = ko.computed(function(){
-        var clicks = this.clickCount();
+    this.title = function(){
+        var clicks = self.clickCount;
         if (clicks < 10)
             return 'Newborn';
         else if(clicks<20)
@@ -52,45 +53,36 @@ var Cat = function(data) {
         else if(clicks<200)
             return Adult;
         return 'Ninja';
-    }, this);
+    };
 
-    this.nicknames = ko.observableArray(data.nicknames);
+    this.incrementCounter = function() {
+        self.clickCount += 1;
+    };
+
+    this.nicknames = data.nicknames;
 };
 
-var ViewModel = function() {
-    var self = this;
-    
-    this.catList = ko.observableArray([]);
+var app = angular.module('myApp', []);
+
+app.controller('catCtrl', function($scope) {
+
+    $scope.catList = [];
 
     for(var i=0; i<data.length; i++) {
         //var cat = ko.observable();
-        this.catList().push(new Cat(data[i]));
+        $scope.catList.push(new Cat(data[i]));
     }
-
-    this.currentCat = ko.observable(this.catList()[0]);
-
-    this.setCurrent = function(data) {
-        //console.log(this.currentCat);
-        this.currentCat(data);
-
-        //console.log(data);
+    $scope.currentCat = $scope.catList[0];
+    $scope.setCat = function(cat) {
+        $scope.currentCat = cat;
     }
-    this.incrementCounter = function() {
-        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
-    };
-
-    this.show = ko.observable(false);
-    this.showPanel = function() {
-        self.show(true);
+    
+    $scope.show = false;
+    $scope.showPanel = function() {
+        $scope.show = true;
     };
     
-    this.hide = function() {
-        self.show(false);
+    $scope.hide = function() {
+        $scope.show = false;
     };
-    
-    this.save = function() {
-        self.show(false);
-    }
-};
-
-ko.applyBindings(new ViewModel());
+});
