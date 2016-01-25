@@ -3,61 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Cat Clicker</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
-<body>
+<body ng-app="myApp" ng-controller="catCtrl">
     <h1>Cat Clicker</h1>
     <div id='cat-container' class='cat-container'>
         <div class='half'>
-            <ul id='cat-list' data-bind='foreach:catList' >
-                <li data-bind="click: $parent.setCurrent.bind($parent)">
-                    <h3 data-bind="text: $data.name"> </h3>
+            <ul id='cat-list' >
+                <li ng-repeat="cat in catList" ng-click="setCat(cat)" >
+                    <h3> {{ cat.name}} </h3>
                 </li>
             </ul>
-            <div class='cat-container' data-bind="template: { name: 'admin-panel' }"></div>
+            <div class='cat-container'>
+            <div class='admin-btn'>
+            <input type='button' ng-click="showPanel()" value='admin' />
         </div>
 
-        <div id="cat" data-bind="with: currentCat" class="half">
-            <h2 data-bind="text: name"></h2>
-            <h3 data-bind="text: title"></h3>
-            <img data-bind="click:$parent.incrementCounter.bind($parent), attr:{src: imgurl}" src="" alt="cute cat">
-            <div data-bind="text: clickCount"></div>
+        <div class='admin-panel' ng-show="show">
+          <div class='admin-field'>
+            <table>
+                <tr>
+                    <td><label for="name">Name</label></td>
+                    <td><input type="text" name="name" size="30" value="{{currentCat.name}}" class="text-input" /></td></tr>
+                <tr><td><label for="imgurl">ImgURL</label></td>
+                    <td><input type="text" name="imgurl" id="imgurl" size="30" value="{{currentCat.imgurl}}" class="text-input" /></td></tr>
+
+                <tr><td><label for="clicks">Clicks</label></td>
+                    <td><input type="text" name="clicks" size="30" value="{{currentCat.clickCount}}" class="text-input" /></td></tr>
+            </table>
+          </div>
+          <div class='admin-field-btn'>
+            <input type='button' ng-click="hide()" value='Cancel' />
+            <input type='button' ng-click="save()" value='Save' />
+          </div>
+        </div>
+            </div>
+        </div>
+
+        <div id="cat" class="half">
+            <h2>{{currentCat.name}}</h2>
+            <h3>{{currentCat.title}}</h3>
+            <img ng-click="currentCat.incrementCounter()" ng-src="{{currentCat.imgurl}}" alt="cute cat">
+            <div>{{currentCat.clickCount}}</div>
             <h3>Nikcknames</h3>
             <ul data-bind="foreach: nicknames">
-                <li>
-                    <span data-bind="text: $data"> </span>
+                <li ng-repeat="nickname in currentCat.nicknames">
+                    <span>{{nickname}}</span>
                 </li>
             </ul>
         </div>
     </div>
-    
-    <script type="text/html" id="admin-panel">
-        <div class='admin-btn'>
-            <input type='button' data-bind="click: showPanel" value='admin' />
-        </div>
 
-        <div class='admin-panel' data-bind="visible: show">
-          <div class='admin-field'>
-            <table data-bind="with: currentCat">
-                <tr>
-                    <td><label for="name">Name</label></td>
-                    <td><input type="text" name="name" size="30" data-bind="value: name" class="text-input" /></td></tr>
-                <tr><td><label for="imgurl">ImgURL</label></td>
-                    <td><input type="text" name="imgurl" id="imgurl" size="30" data-bind="value: imgurl" class="text-input" /></td></tr>
-
-                <tr><td><label for="clicks">Clicks</label></td>
-                    <td><input type="text" name="clicks" size="30" data-bind="value: clickCount" class="text-input" /></td></tr>
-            </table>
-          </div>
-          <div class='admin-field-btn'>
-            <input type='button' data-bind="click: hide" value='Cancel' />
-            <input type='button' data-bind="click: save" value='Save' />
-          </div>
-        </div>
-    </script>
-
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
