@@ -43,7 +43,7 @@
 
         <div id="cat" class="half">
             <h2>{{currentCat.name}}</h2>
-            <h3>{{currentCat.title}}</h3>
+            <h3>{{currentCat.title()}}</h3>
             <img ng-click="currentCat.incrementCounter()" ng-src="{{currentCat.imgurl}}" alt="cute cat">
             <div>{{currentCat.clickCount}}</div>
             <h3>Nikcknames</h3>
