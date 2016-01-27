@@ -51,7 +51,7 @@ var Cat = function(data) {
         else if(clicks<100)
             return 'Teen';
         else if(clicks<200)
-            return Adult;
+            return 'Adult';
         return 'Ninja';
     };
 
@@ -76,7 +76,7 @@ app.controller('catCtrl', function($scope) {
     $scope.setCat = function(cat) {
         $scope.currentCat = cat;
         get();
-    }
+    };
 
     function get() {
         $scope.currentName = $scope.currentCat.name;
