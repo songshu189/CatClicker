@@ -77,7 +77,7 @@ app.controller('catCtrl', function($scope) {
         $scope.currentCat = cat;
         get();
     }
-    
+
     function get() {
         $scope.currentName = $scope.currentCat.name;
         $scope.currentUrl = $scope.currentCat.imgurl;
@@ -88,22 +88,22 @@ app.controller('catCtrl', function($scope) {
         $scope.currentCat.imgurl = $scope.currentUrl;
         $scope.currentCat.clickCount = $scope.currentCount;
     }
-    
+
     $scope.incrementCounter = function() {
         $scope.currentCat.incrementCounter();
         $scope.currentCount = $scope.currentCat.clickCount;
     };
-    
+
     $scope.show = false;
     $scope.showPanel = function() {
         $scope.show = true;
         get();
     };
-    
+
     $scope.hide = function() {
         $scope.show = false;
     };
-    
+
     $scope.save = function() {
         $scope.show = false;
         set();
